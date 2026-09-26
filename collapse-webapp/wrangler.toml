@@ -1,0 +1,13 @@
+name = "collapse-video-worker"
+main = "src/worker.ts"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# R2 Bucket binding — create with: wrangler r2 bucket create collapse-video
+[[r2_buckets]]
+binding = "COLLAPSE_BUCKET"
+bucket_name = "collapse-video"
+
+# Routes — update with your deployed worker subdomain
+# [env.production]
+# routes = [{ pattern = "collapse.yourdomain.com/*", zone_name = "yourdomain.com" }]

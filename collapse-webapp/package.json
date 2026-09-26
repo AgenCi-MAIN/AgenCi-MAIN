@@ -1,0 +1,21 @@
+{
+  "name": "collapse-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "r2:create": "wrangler r2 bucket create collapse-video",
+    "r2:list": "wrangler r2 object list collapse-video",
+    "upload": "node scripts/upload.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260925.1",
+    "typescript": "^5.8.0",
+    "wrangler": "^4.140.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260925.1": true
+  }
+}
