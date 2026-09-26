@@ -118,9 +118,10 @@ export default {
       });
     }
 
-    // ── GET /info ──────────────────────────────────────────────────────────────
+    // ── GET /info[?key=] ───────────────────────────────────────────────────────
     if (pathname === "/info") {
-      const obj = await env.COLLAPSE_BUCKET.head(VIDEO_KEY);
+      const infoKey = url.searchParams.get("key") ?? VIDEO_KEY;
+      const obj = await env.COLLAPSE_BUCKET.head(infoKey);
       if (!obj) {
         return corsHeaders(
           new Response(JSON.stringify({ error: "Video not found. Upload first." }), {
@@ -575,6 +576,14 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   }
   .controls button:hover { background: #333; }
   .controls button.active { background: var(--accent); color: #000; font-weight: 700; }
+  .q-label { font-size: 13px; color: var(--muted); align-self: center; }
+  .q-sep { width: 1px; align-self: stretch; background: var(--border); margin: 4px 2px; }
+  .dl-btn {
+    background: var(--border); border: none; color: var(--text); border-radius: 8px;
+    padding: 8px 16px; font-size: 13px; cursor: pointer; text-decoration: none;
+    font-family: inherit; display: inline-block; transition: background 0.15s;
+  }
+  .dl-btn:hover { background: #333; }
 
   .info-bar {
     display: flex;
@@ -610,12 +619,17 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   </div>
 
   <div class="controls">
-    <button onclick="setRate(0.5)">0.5×</button>
-    <button onclick="setRate(1)" class="active" id="btn-1x">1×</button>
-    <button onclick="setRate(1.5)">1.5×</button>
-    <button onclick="setRate(2)">2×</button>
+    <span class="q-label">Quality</span>
+    <button onclick="setQuality('web')" id="q-web">📱 Web</button>
+    <button onclick="setQuality('master')" id="q-master">🖥️ Master</button>
+    <span class="q-sep"></span>
+    <button class="rate-btn" onclick="setRate(0.5)">0.5×</button>
+    <button class="rate-btn active" onclick="setRate(1)" id="btn-1x">1×</button>
+    <button class="rate-btn" onclick="setRate(1.5)">1.5×</button>
+    <button class="rate-btn" onclick="setRate(2)">2×</button>
     <button onclick="togglePip()">⊞ PiP</button>
     <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+    <a class="dl-btn" href="/video" download="collapse-master.mp4" title="Full-quality 1.4 GB master file">⬇ Master file</a>
     <span id="status"></span>
   </div>
 
@@ -631,17 +645,52 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 const vid = document.getElementById('vid');
 const status = document.getElementById('status');
 
-// Fetch video info
-fetch('/info').then(r => r.json()).then(info => {
-  document.getElementById('header-meta').textContent = info.sizeMB + ' MB · ' + (info.uploaded ? info.uploaded.slice(0,10) : '');
-  document.getElementById('info-bar').innerHTML =
-    '<span><strong>' + info.sizeMB + ' MB</strong> Size</span>' +
-    '<span><strong>H.264 MP4</strong> Format</span>' +
-    '<span><strong>' + (info.uploaded ? info.uploaded.slice(0,10) : '—') + '</strong> Uploaded</span>' +
-    '<span><strong id="dur">—</strong> Duration</span>';
-}).catch(() => {
-  document.getElementById('header-meta').textContent = 'Cloudflare R2';
-});
+// Quality switch: Web (phone-friendly) vs Master (full 300 Mbps)
+const SOURCES = {
+  web:    { src: '/video/collapse-web.mp4', key: 'collapse-web.mp4', tag: '📱 Web · 25 Mbps' },
+  master: { src: '/video',                  key: 'collapse.mp4',     tag: '🖥️ Master · 300 Mbps' },
+};
+const isMobile = window.matchMedia('(pointer: coarse)').matches ||
+  /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+let quality = isMobile ? 'web' : 'master';
+
+function refreshInfo() {
+  const q = SOURCES[quality];
+  fetch('/info?key=' + encodeURIComponent(q.key)).then(r => r.json()).then(info => {
+    document.getElementById('header-meta').textContent = info.sizeMB + ' MB · ' + (info.uploaded ? info.uploaded.slice(0,10) : '');
+    document.getElementById('info-bar').innerHTML =
+      '<span><strong>' + info.sizeMB + ' MB</strong> Size</span>' +
+      '<span><strong>' + q.tag + '</strong> Quality</span>' +
+      '<span><strong>H.264 MP4</strong> Format</span>' +
+      '<span><strong>' + (info.uploaded ? info.uploaded.slice(0,10) : '—') + '</strong> Uploaded</span>' +
+      '<span><strong id="dur">—</strong> Duration</span>';
+  }).catch(() => {
+    document.getElementById('header-meta').textContent = 'Cloudflare R2';
+  });
+  document.getElementById('q-web').classList.toggle('active', quality === 'web');
+  document.getElementById('q-master').classList.toggle('active', quality === 'master');
+}
+
+function setQuality(q) {
+  if (q === quality || !SOURCES[q]) return;
+  quality = q;
+  const t = vid.currentTime || 0;
+  const wasPlaying = !vid.paused && !vid.ended;
+  status.textContent = '⏳ Switching to ' + SOURCES[q].tag + '…';
+  vid.src = SOURCES[q].src;
+  vid.load();
+  const restore = () => {
+    vid.removeEventListener('loadedmetadata', restore);
+    if (t > 0 && t < vid.duration) { try { vid.currentTime = t; } catch (e) {} }
+    if (wasPlaying) vid.play().catch(() => {});
+  };
+  vid.addEventListener('loadedmetadata', restore);
+  refreshInfo();
+}
+
+// Apply this device's default quality, then fetch video info
+vid.src = SOURCES[quality].src;
+refreshInfo();
 
 vid.addEventListener('loadedmetadata', () => {
   const d = vid.duration;
@@ -656,12 +705,11 @@ vid.addEventListener('waiting', () => { status.textContent = '⏳ Buffering…';
 vid.addEventListener('playing', () => { status.textContent = ''; });
 vid.addEventListener('error', () => { status.textContent = '❌ Stream error — check R2 upload.'; });
 
-const rateBtns = document.querySelectorAll('.controls button');
+const rateBtns = document.querySelectorAll('.controls .rate-btn');
 function setRate(r) {
   vid.playbackRate = r;
   rateBtns.forEach(b => b.classList.remove('active'));
-  const btns = document.querySelectorAll('.controls button');
-  btns.forEach(b => { if (b.textContent === r + '×') b.classList.add('active'); });
+  rateBtns.forEach(b => { if (b.textContent === r + '×') b.classList.add('active'); });
   status.textContent = 'Speed: ' + r + '×';
   setTimeout(() => { status.textContent = ''; }, 1500);
 }
