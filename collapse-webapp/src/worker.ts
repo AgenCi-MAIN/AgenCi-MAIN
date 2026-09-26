@@ -27,17 +27,14 @@ export default {
       return corsHeaders(new Response(null, { status: 204 }));
     }
 
-    // ── Admin upload routes — no credentials needed (uses R2 binding directly) ──
-    // All /admin/* routes are protected by optional UPLOAD_SECRET
+    // ── Admin upload routes — fail closed: 403 unless a valid UPLOAD_SECRET is set ──
     if (pathname.startsWith("/admin/")) {
-      if (env.UPLOAD_SECRET) {
-        const auth = request.headers.get("x-upload-secret") ?? "";
-        if (auth !== env.UPLOAD_SECRET) {
-          return new Response(JSON.stringify({ error: "Forbidden" }), {
-            status: 403,
-            headers: { "content-type": "application/json" },
-          });
-        }
+      const auth = request.headers.get("x-upload-secret") ?? "";
+      if (!env.UPLOAD_SECRET || auth !== env.UPLOAD_SECRET) {
+        return new Response(JSON.stringify({ error: "Forbidden" }), {
+          status: 403,
+          headers: { "content-type": "application/json" },
+        });
       }
 
       // POST /admin/mpu/create?key=collapse.mp4 → { uploadId }
