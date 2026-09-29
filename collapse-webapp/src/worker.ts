@@ -133,7 +133,7 @@ export default {
       return corsHeaders(
         new Response(
           JSON.stringify({
-            key: VIDEO_KEY,
+            key: infoKey,
             size: obj.size,
             sizeMB: (obj.size / 1024 / 1024).toFixed(1),
             contentType: obj.httpMetadata?.contentType ?? "video/mp4",
@@ -288,7 +288,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Collapse</title>
+<title>Cinema</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -321,189 +321,102 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   body::before {
     width: 1px; height: 1px;
     box-shadow:
-      298px 94px 0 rgba(255,255,255,0.26),
-      938px 1035px 0 rgba(255,255,255,0.84),
-      147px 235px 0 rgba(255,255,255,0.51),
-      1010px 462px 0 rgba(255,255,255,0.34),
-      1674px 1438px 0 rgba(255,255,255,0.29),
-      1269px 1465px 0 rgba(255,255,255,0.63),
-      823px 1187px 0 rgba(255,255,255,0.67),
-      1847px 1426px 0 rgba(255,255,255,0.36),
-      510px 1073px 0 rgba(255,255,255,0.48),
-      1028px 489px 0 rgba(255,255,255,0.49),
-      1734px 732px 0 rgba(255,255,255,0.88),
-      2261px 513px 0 rgba(255,255,255,0.89),
-      99px 182px 0 rgba(255,255,255,0.38),
-      1543px 1392px 0 rgba(255,255,255,0.59),
-      716px 845px 0 rgba(255,255,255,0.73),
-      2252px 306px 0 rgba(255,255,255,0.53),
-      642px 359px 0 rgba(255,255,255,0.76),
-      781px 166px 0 rgba(255,255,255,0.86),
-      166px 1149px 0 rgba(255,255,255,0.83),
-      248px 946px 0 rgba(255,255,255,0.82),
-      951px 555px 0 rgba(255,255,255,0.9),
-      1227px 878px 0 rgba(255,255,255,0.71),
-      159px 1407px 0 rgba(255,255,255,0.33),
-      1434px 1535px 0 rgba(255,255,255,0.32),
-      2243px 1185px 0 rgba(255,255,255,0.29),
-      907px 446px 0 rgba(255,255,255,0.7),
-      1864px 811px 0 rgba(255,255,255,0.3),
-      573px 66px 0 rgba(255,255,255,0.5),
-      1758px 1312px 0 rgba(255,255,255,0.59),
-      1911px 770px 0 rgba(255,255,255,0.79),
-      1277px 1158px 0 rgba(255,255,255,0.92),
-      2108px 1143px 0 rgba(255,255,255,0.88),
-      134px 870px 0 rgba(255,255,255,0.92),
-      2249px 346px 0 rgba(255,255,255,0.34),
-      54px 1177px 0 rgba(255,255,255,0.26),
-      2304px 106px 0 rgba(255,255,255,0.46),
-      2015px 349px 0 rgba(255,255,255,0.38),
-      1972px 1367px 0 rgba(255,255,255,0.67),
-      88px 180px 0 rgba(255,255,255,0.57),
-      1072px 1103px 0 rgba(255,255,255,0.46),
-      2407px 1018px 0 rgba(255,255,255,0.63),
-      736px 795px 0 rgba(255,255,255,0.27),
-      76px 1196px 0 rgba(255,255,255,0.76),
-      2031px 1583px 0 rgba(255,255,255,0.45),
-      738px 684px 0 rgba(255,255,255,0.94),
-      1021px 41px 0 rgba(255,255,255,0.5),
-      2498px 1041px 0 rgba(255,255,255,0.64),
-      1995px 117px 0 rgba(255,255,255,0.91),
-      1724px 755px 0 rgba(255,255,255,0.88),
-      1474px 1478px 0 rgba(255,255,255,0.61),
-      1072px 792px 0 rgba(255,255,255,0.8),
-      70px 1174px 0 rgba(255,255,255,0.56),
-      2343px 639px 0 rgba(255,255,255,0.56),
-      488px 856px 0 rgba(255,255,255,0.26),
-      1911px 949px 0 rgba(255,255,255,0.68),
-      617px 906px 0 rgba(255,255,255,0.83),
-      1669px 1230px 0 rgba(255,255,255,0.79),
-      2px 257px 0 rgba(255,255,255,0.29),
-      590px 173px 0 rgba(255,255,255,0.3),
-      1538px 541px 0 rgba(255,255,255,0.45),
-      590px 863px 0 rgba(255,255,255,0.37),
-      802px 1245px 0 rgba(255,255,255,0.58),
-      5px 139px 0 rgba(255,255,255,0.84),
-      11px 1586px 0 rgba(255,255,255,0.76),
-      1513px 831px 0 rgba(255,255,255,0.65),
-      2167px 22px 0 rgba(255,255,255,0.33),
-      1600px 1234px 0 rgba(255,255,255,0.79),
-      2339px 88px 0 rgba(255,255,255,0.91),
-      1600px 873px 0 rgba(255,255,255,0.85),
-      2127px 1383px 0 rgba(255,255,255,0.65),
-      660px 222px 0 rgba(255,255,255,0.95),
-      94px 1002px 0 rgba(255,255,255,0.67),
-      108px 530px 0 rgba(255,255,255,0.75),
-      2158px 353px 0 rgba(255,255,255,0.8),
-      354px 1026px 0 rgba(255,255,255,0.94),
-      106px 950px 0 rgba(255,255,255,0.25),
-      2553px 382px 0 rgba(255,255,255,0.87),
-      1286px 59px 0 rgba(255,255,255,0.42),
-      802px 198px 0 rgba(255,255,255,0.54),
-      596px 848px 0 rgba(255,255,255,0.65),
-      217px 894px 0 rgba(255,255,255,0.46),
-      870px 1307px 0 rgba(255,255,255,0.69),
-      471px 441px 0 rgba(255,255,255,0.9),
-      1448px 42px 0 rgba(255,255,255,0.8),
-      2483px 176px 0 rgba(255,255,255,0.6),
-      1641px 981px 0 rgba(255,255,255,0.76),
-      1139px 864px 0 rgba(255,255,255,0.78),
-      446px 319px 0 rgba(255,255,255,0.29),
-      2110px 1595px 0 rgba(255,255,255,0.68),
-      2426px 63px 0 rgba(255,255,255,0.62),
-      2173px 930px 0 rgba(255,255,255,0.57),
-      252px 725px 0 rgba(255,255,255,0.66),
-      1607px 794px 0 rgba(255,255,255,0.89),
-      50px 1582px 0 rgba(255,255,255,0.38),
-      1791px 624px 0 rgba(255,255,255,0.57),
-      2294px 413px 0 rgba(255,255,255,0.32),
-      1082px 439px 0 rgba(255,255,255,0.92),
-      1166px 963px 0 rgba(255,255,255,0.86),
-      838px 301px 0 rgba(255,255,255,0.8),
-      2117px 515px 0 rgba(255,255,255,0.91),
-      1468px 1600px 0 rgba(255,255,255,0.3),
-      834px 137px 0 rgba(255,255,255,0.8),
-      1863px 220px 0 rgba(255,255,255,0.41),
-      797px 1302px 0 rgba(255,255,255,0.47),
-      199px 223px 0 rgba(255,255,255,0.76),
-      162px 105px 0 rgba(255,255,255,0.76),
-      2327px 909px 0 rgba(255,255,255,0.34),
-      2422px 479px 0 rgba(255,255,255,0.75),
-      954px 415px 0 rgba(255,255,255,0.7),
-      450px 1513px 0 rgba(255,255,255,0.84),
-      81px 798px 0 rgba(255,255,255,0.54),
-      2190px 305px 0 rgba(255,255,255,0.39),
-      1666px 897px 0 rgba(255,255,255,0.68),
-      2062px 574px 0 rgba(255,255,255,0.65),
-      2334px 683px 0 rgba(255,255,255,0.39),
-      469px 1524px 0 rgba(255,255,255,0.61),
-      2182px 931px 0 rgba(255,255,255,0.66),
-      623px 687px 0 rgba(255,255,255,0.68),
-      612px 1052px 0 rgba(255,255,255,0.52),
-      2507px 792px 0 rgba(255,255,255,0.48),
-      1664px 797px 0 rgba(255,255,255,0.94),
-      1622px 513px 0 rgba(255,255,255,0.92),
-      2342px 276px 0 rgba(255,255,255,0.94),
-      1294px 1202px 0 rgba(255,255,255,0.44),
-      1062px 1427px 0 rgba(255,255,255,0.26),
-      586px 666px 0 rgba(255,255,255,0.61),
-      844px 1399px 0 rgba(255,255,255,0.35),
-      787px 412px 0 rgba(255,255,255,0.76),
-      1260px 1539px 0 rgba(255,255,255,0.71),
-      46px 1510px 0 rgba(255,255,255,0.37);
+      298px 94px 0 rgba(255,255,255,0.26), 938px 1035px 0 rgba(255,255,255,0.84),
+      147px 235px 0 rgba(255,255,255,0.51), 1010px 462px 0 rgba(255,255,255,0.34),
+      1674px 1438px 0 rgba(255,255,255,0.29), 1269px 1465px 0 rgba(255,255,255,0.63),
+      823px 1187px 0 rgba(255,255,255,0.67), 1847px 1426px 0 rgba(255,255,255,0.36),
+      510px 1073px 0 rgba(255,255,255,0.48), 1028px 489px 0 rgba(255,255,255,0.49),
+      1734px 732px 0 rgba(255,255,255,0.88), 2261px 513px 0 rgba(255,255,255,0.89),
+      99px 182px 0 rgba(255,255,255,0.38), 1543px 1392px 0 rgba(255,255,255,0.59),
+      716px 845px 0 rgba(255,255,255,0.73), 2252px 306px 0 rgba(255,255,255,0.53),
+      642px 359px 0 rgba(255,255,255,0.76), 781px 166px 0 rgba(255,255,255,0.86),
+      166px 1149px 0 rgba(255,255,255,0.83), 248px 946px 0 rgba(255,255,255,0.82),
+      951px 555px 0 rgba(255,255,255,0.9), 1227px 878px 0 rgba(255,255,255,0.71),
+      159px 1407px 0 rgba(255,255,255,0.33), 1434px 1535px 0 rgba(255,255,255,0.32),
+      2243px 1185px 0 rgba(255,255,255,0.29), 907px 446px 0 rgba(255,255,255,0.7),
+      1864px 811px 0 rgba(255,255,255,0.3), 573px 66px 0 rgba(255,255,255,0.5),
+      1758px 1312px 0 rgba(255,255,255,0.59), 1911px 770px 0 rgba(255,255,255,0.79),
+      1277px 1158px 0 rgba(255,255,255,0.92), 2108px 1143px 0 rgba(255,255,255,0.88),
+      134px 870px 0 rgba(255,255,255,0.92), 2249px 346px 0 rgba(255,255,255,0.34),
+      54px 1177px 0 rgba(255,255,255,0.26), 2304px 106px 0 rgba(255,255,255,0.46),
+      2015px 349px 0 rgba(255,255,255,0.38), 1972px 1367px 0 rgba(255,255,255,0.67),
+      88px 180px 0 rgba(255,255,255,0.57), 1072px 1103px 0 rgba(255,255,255,0.46),
+      2407px 1018px 0 rgba(255,255,255,0.63), 736px 795px 0 rgba(255,255,255,0.27),
+      76px 1196px 0 rgba(255,255,255,0.76), 2031px 1583px 0 rgba(255,255,255,0.45),
+      738px 684px 0 rgba(255,255,255,0.94), 1021px 41px 0 rgba(255,255,255,0.5),
+      2498px 1041px 0 rgba(255,255,255,0.64), 1995px 117px 0 rgba(255,255,255,0.91),
+      1724px 755px 0 rgba(255,255,255,0.88), 1474px 1478px 0 rgba(255,255,255,0.61),
+      1072px 792px 0 rgba(255,255,255,0.8), 70px 1174px 0 rgba(255,255,255,0.56),
+      2343px 639px 0 rgba(255,255,255,0.56), 488px 856px 0 rgba(255,255,255,0.26),
+      1911px 949px 0 rgba(255,255,255,0.68), 617px 906px 0 rgba(255,255,255,0.83),
+      1669px 1230px 0 rgba(255,255,255,0.79), 2px 257px 0 rgba(255,255,255,0.29),
+      590px 173px 0 rgba(255,255,255,0.3), 1538px 541px 0 rgba(255,255,255,0.45),
+      590px 863px 0 rgba(255,255,255,0.37), 802px 1245px 0 rgba(255,255,255,0.58),
+      5px 139px 0 rgba(255,255,255,0.84), 11px 1586px 0 rgba(255,255,255,0.76),
+      1513px 831px 0 rgba(255,255,255,0.65), 2167px 22px 0 rgba(255,255,255,0.33),
+      1600px 1234px 0 rgba(255,255,255,0.79), 2339px 88px 0 rgba(255,255,255,0.91),
+      1600px 873px 0 rgba(255,255,255,0.85), 2127px 1383px 0 rgba(255,255,255,0.65),
+      660px 222px 0 rgba(255,255,255,0.95), 94px 1002px 0 rgba(255,255,255,0.67),
+      108px 530px 0 rgba(255,255,255,0.75), 2158px 353px 0 rgba(255,255,255,0.8),
+      354px 1026px 0 rgba(255,255,255,0.94), 106px 950px 0 rgba(255,255,255,0.25),
+      2553px 382px 0 rgba(255,255,255,0.87), 1286px 59px 0 rgba(255,255,255,0.42),
+      802px 198px 0 rgba(255,255,255,0.54), 596px 848px 0 rgba(255,255,255,0.65),
+      217px 894px 0 rgba(255,255,255,0.46), 870px 1307px 0 rgba(255,255,255,0.69),
+      471px 441px 0 rgba(255,255,255,0.9), 1448px 42px 0 rgba(255,255,255,0.8),
+      2483px 176px 0 rgba(255,255,255,0.6), 1641px 981px 0 rgba(255,255,255,0.76),
+      1139px 864px 0 rgba(255,255,255,0.78), 446px 319px 0 rgba(255,255,255,0.29),
+      2110px 1595px 0 rgba(255,255,255,0.68), 2426px 63px 0 rgba(255,255,255,0.62),
+      2173px 930px 0 rgba(255,255,255,0.57), 252px 725px 0 rgba(255,255,255,0.66),
+      1607px 794px 0 rgba(255,255,255,0.89), 50px 1582px 0 rgba(255,255,255,0.38),
+      1791px 624px 0 rgba(255,255,255,0.57), 2294px 413px 0 rgba(255,255,255,0.32),
+      1082px 439px 0 rgba(255,255,255,0.92), 1166px 963px 0 rgba(255,255,255,0.86),
+      838px 301px 0 rgba(255,255,255,0.8), 2117px 515px 0 rgba(255,255,255,0.91),
+      1468px 1600px 0 rgba(255,255,255,0.3), 834px 137px 0 rgba(255,255,255,0.8),
+      1863px 220px 0 rgba(255,255,255,0.41), 797px 1302px 0 rgba(255,255,255,0.47),
+      199px 223px 0 rgba(255,255,255,0.76), 162px 105px 0 rgba(255,255,255,0.76),
+      2327px 909px 0 rgba(255,255,255,0.34), 2422px 479px 0 rgba(255,255,255,0.75),
+      954px 415px 0 rgba(255,255,255,0.7), 450px 1513px 0 rgba(255,255,255,0.84),
+      81px 798px 0 rgba(255,255,255,0.54), 2190px 305px 0 rgba(255,255,255,0.39),
+      1666px 897px 0 rgba(255,255,255,0.68), 2062px 574px 0 rgba(255,255,255,0.65),
+      2334px 683px 0 rgba(255,255,255,0.39), 469px 1524px 0 rgba(255,255,255,0.61),
+      2182px 931px 0 rgba(255,255,255,0.66), 623px 687px 0 rgba(255,255,255,0.68),
+      612px 1052px 0 rgba(255,255,255,0.52), 2507px 792px 0 rgba(255,255,255,0.48),
+      1664px 797px 0 rgba(255,255,255,0.94), 1622px 513px 0 rgba(255,255,255,0.92),
+      2342px 276px 0 rgba(255,255,255,0.94), 1294px 1202px 0 rgba(255,255,255,0.44),
+      1062px 1427px 0 rgba(255,255,255,0.26), 586px 666px 0 rgba(255,255,255,0.61),
+      844px 1399px 0 rgba(255,255,255,0.35), 787px 412px 0 rgba(255,255,255,0.76),
+      1260px 1539px 0 rgba(255,255,255,0.71), 46px 1510px 0 rgba(255,255,255,0.37);
   }
   body::after {
     width: 2px; height: 2px;
     box-shadow:
-      282px 1383px 0 rgba(255,255,255,0.74),
-      2500px 244px 0 rgba(255,255,255,0.51),
-      239px 368px 0 rgba(255,255,255,0.41),
-      2456px 1262px 0 rgba(255,255,255,0.76),
-      1012px 232px 0 rgba(255,255,255,0.59),
-      1251px 1286px 0 rgba(255,255,255,0.37),
-      1607px 266px 0 rgba(255,255,255,0.8),
-      404px 314px 0 rgba(255,255,255,0.36),
-      864px 196px 0 rgba(255,255,255,0.39),
-      1049px 1579px 0 rgba(255,255,255,0.7),
-      1657px 1570px 0 rgba(255,255,255,0.73),
-      1377px 218px 0 rgba(255,255,255,0.59),
-      1640px 1059px 0 rgba(255,255,255,0.31),
-      2140px 1424px 0 rgba(255,255,255,0.67),
-      2545px 645px 0 rgba(255,255,255,0.54),
-      1340px 1475px 0 rgba(255,255,255,0.51),
-      2065px 843px 0 rgba(255,255,255,0.51),
-      157px 56px 0 rgba(255,255,255,0.7),
-      1162px 435px 0 rgba(255,255,255,0.32),
-      974px 984px 0 rgba(255,255,255,0.62),
-      1493px 1005px 0 rgba(255,255,255,0.37),
-      696px 1296px 0 rgba(255,255,255,0.4),
-      1910px 1556px 0 rgba(255,255,255,0.69),
-      1906px 920px 0 rgba(255,255,255,0.9),
-      953px 1089px 0 rgba(255,255,255,0.74),
-      2441px 879px 0 rgba(255,255,255,0.74),
-      1849px 1382px 0 rgba(255,255,255,0.9),
-      583px 1375px 0 rgba(255,255,255,0.92),
-      96px 339px 0 rgba(255,255,255,0.76),
-      1133px 910px 0 rgba(255,255,255,0.74),
-      1161px 473px 0 rgba(255,255,255,0.26),
-      375px 599px 0 rgba(255,255,255,0.68),
-      11px 356px 0 rgba(255,255,255,0.31),
-      703px 185px 0 rgba(255,255,255,0.37),
-      967px 443px 0 rgba(255,255,255,0.92),
-      1676px 811px 0 rgba(255,255,255,0.66),
-      2306px 778px 0 rgba(255,255,255,0.32),
-      1623px 710px 0 rgba(255,255,255,0.62),
-      722px 389px 0 rgba(255,255,255,0.7),
-      782px 242px 0 rgba(255,255,255,0.34),
-      1817px 656px 0 rgba(255,255,255,0.25),
-      2507px 633px 0 rgba(255,255,255,0.36),
-      740px 189px 0 rgba(255,255,255,0.71),
-      875px 1344px 0 rgba(255,255,255,0.86),
+      282px 1383px 0 rgba(255,255,255,0.74), 2500px 244px 0 rgba(255,255,255,0.51),
+      239px 368px 0 rgba(255,255,255,0.41), 2456px 1262px 0 rgba(255,255,255,0.76),
+      1012px 232px 0 rgba(255,255,255,0.59), 1251px 1286px 0 rgba(255,255,255,0.37),
+      1607px 266px 0 rgba(255,255,255,0.8), 404px 314px 0 rgba(255,255,255,0.36),
+      864px 196px 0 rgba(255,255,255,0.39), 1049px 1579px 0 rgba(255,255,255,0.7),
+      1657px 1570px 0 rgba(255,255,255,0.73), 1377px 218px 0 rgba(255,255,255,0.59),
+      1640px 1059px 0 rgba(255,255,255,0.31), 2140px 1424px 0 rgba(255,255,255,0.67),
+      2545px 645px 0 rgba(255,255,255,0.54), 1340px 1475px 0 rgba(255,255,255,0.51),
+      2065px 843px 0 rgba(255,255,255,0.51), 157px 56px 0 rgba(255,255,255,0.7),
+      1162px 435px 0 rgba(255,255,255,0.32), 974px 984px 0 rgba(255,255,255,0.62),
+      1493px 1005px 0 rgba(255,255,255,0.37), 696px 1296px 0 rgba(255,255,255,0.4),
+      1910px 1556px 0 rgba(255,255,255,0.69), 1906px 920px 0 rgba(255,255,255,0.9),
+      953px 1089px 0 rgba(255,255,255,0.74), 2441px 879px 0 rgba(255,255,255,0.74),
+      1849px 1382px 0 rgba(255,255,255,0.9), 583px 1375px 0 rgba(255,255,255,0.92),
+      96px 339px 0 rgba(255,255,255,0.76), 1133px 910px 0 rgba(255,255,255,0.74),
+      1161px 473px 0 rgba(255,255,255,0.26), 375px 599px 0 rgba(255,255,255,0.68),
+      11px 356px 0 rgba(255,255,255,0.31), 703px 185px 0 rgba(255,255,255,0.37),
+      967px 443px 0 rgba(255,255,255,0.92), 1676px 811px 0 rgba(255,255,255,0.66),
+      2306px 778px 0 rgba(255,255,255,0.32), 1623px 710px 0 rgba(255,255,255,0.62),
+      722px 389px 0 rgba(255,255,255,0.7), 782px 242px 0 rgba(255,255,255,0.34),
+      1817px 656px 0 rgba(255,255,255,0.25), 2507px 633px 0 rgba(255,255,255,0.36),
+      740px 189px 0 rgba(255,255,255,0.71), 875px 1344px 0 rgba(255,255,255,0.86),
       339px 669px 0 rgba(255,255,255,0.47);
     animation: twinkle 4.5s ease-in-out infinite alternate;
   }
   @keyframes twinkle { from { opacity: 0.35; } to { opacity: 1; } }
-  header, .player-wrap { position: relative; z-index: 1; }
+  header, .player-wrap, .film { position: relative; z-index: 1; }
 
   header {
     width: 100%;
@@ -515,9 +428,11 @@ const INLINE_PLAYER = `<!DOCTYPE html>
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
   }
   header h1 { font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
-  header .pill {
+  .pill {
     font-size: 11px;
     padding: 3px 10px;
     border-radius: 99px;
@@ -531,11 +446,27 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   .player-wrap {
     width: 100%;
     max-width: 1200px;
-    padding: 32px 24px;
+    padding: 0 24px 48px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .film {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 40px 0 48px;
   }
+  .film + .film { border-top: 1px solid var(--border); }
+  .film h2 {
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .film h2 .sub { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; text-transform: none; }
 
   .video-container {
     position: relative;
@@ -576,8 +507,6 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   }
   .controls button:hover { background: #333; }
   .controls button.active { background: var(--accent); color: #000; font-weight: 700; }
-  .q-label { font-size: 13px; color: var(--muted); align-self: center; }
-  .q-sep { width: 1px; align-self: stretch; background: var(--border); margin: 4px 2px; }
   .dl-btn {
     background: var(--border); border: none; color: var(--text); border-radius: 8px;
     padding: 8px 16px; font-size: 13px; cursor: pointer; text-decoration: none;
@@ -596,7 +525,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   }
   .info-bar span strong { color: var(--text); }
 
-  #status {
+  .status {
     font-size: 13px;
     color: var(--accent);
     min-height: 20px;
@@ -605,130 +534,127 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 </head>
 <body>
 <header>
-  <h1>Collapse</h1>
+  <h1>Cinema</h1>
   <span class="pill">H.264 · MP4</span>
-  <span class="meta" id="header-meta">Loading…</span>
+  <span class="meta" id="header-meta">Collapse · Coherence</span>
 </header>
 
 <div class="player-wrap">
-  <div class="video-container">
-    <video id="vid" controls preload="metadata" playsinline>
-      <source id="vid-src" src="/video" type="video/mp4" />
-      Your browser does not support HTML5 video.
-    </video>
-  </div>
 
-  <div class="controls">
-    <span class="q-label">Quality</span>
-    <button onclick="setQuality('web')" id="q-web">📱 Web</button>
-    <button onclick="setQuality('master')" id="q-master">🖥️ Master</button>
-    <span class="q-sep"></span>
-    <button class="rate-btn" onclick="setRate(0.5)">0.5×</button>
-    <button class="rate-btn active" onclick="setRate(1)" id="btn-1x">1×</button>
-    <button class="rate-btn" onclick="setRate(1.5)">1.5×</button>
-    <button class="rate-btn" onclick="setRate(2)">2×</button>
-    <button onclick="togglePip()">⊞ PiP</button>
-    <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
-    <a class="dl-btn" href="/video" download="collapse-master.mp4" title="Full-quality 1.4 GB master file">⬇ Master file</a>
-    <span id="status"></span>
-  </div>
+  <section class="film">
+    <h2>Collapse <span class="sub" id="sub-collapse"></span></h2>
+    <div class="video-container">
+      <video id="vid-collapse" controls preload="metadata" playsinline>
+        <source src="/video/collapse-web.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+    <div class="controls">
+      <button class="rate-btn" data-film="collapse" data-rate="0.5">0.5×</button>
+      <button class="rate-btn active" data-film="collapse" data-rate="1">1×</button>
+      <button class="rate-btn" data-film="collapse" data-rate="1.5">1.5×</button>
+      <button class="rate-btn" data-film="collapse" data-rate="2">2×</button>
+      <button data-film="collapse" data-act="pip">⊞ PiP</button>
+      <button data-film="collapse" data-act="fs">⛶ Fullscreen</button>
+      <a class="dl-btn" href="/video/collapse-web.mp4" download="collapse.mp4">⬇ Collapse file</a>
+      <span class="status" id="status-collapse"></span>
+    </div>
+    <div class="info-bar" id="info-collapse">
+      <span><strong>—</strong> Size</span>
+      <span><strong>—</strong> Uploaded</span>
+      <span><strong>—</strong> Duration</span>
+    </div>
+  </section>
 
-  <div class="info-bar" id="info-bar">
-    <span><strong>—</strong> Size</span>
-    <span><strong>—</strong> Format</span>
-    <span><strong>—</strong> Uploaded</span>
-    <span><strong>—</strong> Duration</span>
-  </div>
+  <section class="film">
+    <h2>Coherence <span class="sub" id="sub-coherence"></span></h2>
+    <div class="video-container">
+      <video id="vid-coherence" controls preload="metadata" playsinline>
+        <source src="/video" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+    <div class="controls">
+      <button class="rate-btn" data-film="coherence" data-rate="0.5">0.5×</button>
+      <button class="rate-btn active" data-film="coherence" data-rate="1">1×</button>
+      <button class="rate-btn" data-film="coherence" data-rate="1.5">1.5×</button>
+      <button class="rate-btn" data-film="coherence" data-rate="2">2×</button>
+      <button data-film="coherence" data-act="pip">⊞ PiP</button>
+      <button data-film="coherence" data-act="fs">⛶ Fullscreen</button>
+      <a class="dl-btn" href="/video" download="coherence-master.mp4">⬇ Coherence file</a>
+      <span class="status" id="status-coherence"></span>
+    </div>
+    <div class="info-bar" id="info-coherence">
+      <span><strong>—</strong> Size</span>
+      <span><strong>—</strong> Uploaded</span>
+      <span><strong>—</strong> Duration</span>
+    </div>
+  </section>
+
 </div>
 
 <script>
-const vid = document.getElementById('vid');
-const status = document.getElementById('status');
-
-// Quality switch: Web (phone-friendly) vs Master (full 300 Mbps)
-const SOURCES = {
-  web:    { src: '/video/collapse-web.mp4', key: 'collapse-web.mp4', tag: '📱 Web · 25 Mbps' },
-  master: { src: '/video',                  key: 'collapse.mp4',     tag: '🖥️ Master · 300 Mbps' },
+const FILMS = {
+  collapse:  { key: 'collapse-web.mp4' },
+  coherence: { key: 'collapse.mp4' },
 };
-const isMobile = window.matchMedia('(pointer: coarse)').matches ||
-  /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-let quality = isMobile ? 'web' : 'master';
+function $(id) { return document.getElementById(id); }
 
-function refreshInfo() {
-  const q = SOURCES[quality];
-  fetch('/info?key=' + encodeURIComponent(q.key)).then(r => r.json()).then(info => {
-    document.getElementById('header-meta').textContent = info.sizeMB + ' MB · ' + (info.uploaded ? info.uploaded.slice(0,10) : '');
-    document.getElementById('info-bar').innerHTML =
+function setupFilm(id) {
+  const vid = $('vid-' + id);
+  const status = $('status-' + id);
+  const key = FILMS[id].key;
+  fetch('/info?key=' + encodeURIComponent(key)).then(r => r.json()).then(info => {
+    $('info-' + id).innerHTML =
       '<span><strong>' + info.sizeMB + ' MB</strong> Size</span>' +
-      '<span><strong>' + q.tag + '</strong> Quality</span>' +
-      '<span><strong>H.264 MP4</strong> Format</span>' +
-      '<span><strong>' + (info.uploaded ? info.uploaded.slice(0,10) : '—') + '</strong> Uploaded</span>' +
-      '<span><strong id="dur">—</strong> Duration</span>';
-  }).catch(() => {
-    document.getElementById('header-meta').textContent = 'Cloudflare R2';
+      '<span><strong>' + (info.uploaded ? info.uploaded.slice(0, 10) : '—') + '</strong> Uploaded</span>' +
+      '<span><strong id="dur-' + id + '">—</strong> Duration</span>';
+    $('sub-' + id).textContent = info.sizeMB + ' MB · H.264';
+  }).catch(() => {});
+  vid.addEventListener('loadedmetadata', () => {
+    const d = vid.duration;
+    const h = Math.floor(d / 3600);
+    const m = Math.floor((d % 3600) / 60);
+    const s = Math.floor(d % 60);
+    const dEl = $('dur-' + id);
+    if (dEl) dEl.textContent = (h ? h + 'h ' : '') + (m ? m + 'm ' : '') + s + 's';
   });
-  document.getElementById('q-web').classList.toggle('active', quality === 'web');
-  document.getElementById('q-master').classList.toggle('active', quality === 'master');
+  vid.addEventListener('waiting', () => { status.textContent = '⏳ Buffering…'; });
+  vid.addEventListener('playing', () => { status.textContent = ''; });
+  vid.addEventListener('error', () => { status.textContent = '❌ Stream error — check R2 upload.'; });
 }
 
-function setQuality(q) {
-  if (q === quality || !SOURCES[q]) return;
-  quality = q;
-  const t = vid.currentTime || 0;
-  const wasPlaying = !vid.paused && !vid.ended;
-  status.textContent = '⏳ Switching to ' + SOURCES[q].tag + '…';
-  vid.src = SOURCES[q].src;
-  vid.load();
-  const restore = () => {
-    vid.removeEventListener('loadedmetadata', restore);
-    if (t > 0 && t < vid.duration) { try { vid.currentTime = t; } catch (e) {} }
-    if (wasPlaying) vid.play().catch(() => {});
-  };
-  vid.addEventListener('loadedmetadata', restore);
-  refreshInfo();
-}
-
-// Apply this device's default quality, then fetch video info
-vid.src = SOURCES[quality].src;
-refreshInfo();
-
-vid.addEventListener('loadedmetadata', () => {
-  const d = vid.duration;
-  const h = Math.floor(d / 3600);
-  const m = Math.floor((d % 3600) / 60);
-  const s = Math.floor(d % 60);
-  const durEl = document.getElementById('dur');
-  if (durEl) durEl.textContent = (h ? h + 'h ' : '') + (m ? m + 'm ' : '') + s + 's';
+document.querySelectorAll('button.rate-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    const id = b.getAttribute('data-film');
+    const r = parseFloat(b.getAttribute('data-rate'));
+    $('vid-' + id).playbackRate = r;
+    document.querySelectorAll('button.rate-btn[data-film="' + id + '"]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const status = $('status-' + id);
+    status.textContent = 'Speed: ' + r + '×';
+    setTimeout(() => { status.textContent = ''; }, 1500);
+  });
 });
 
-vid.addEventListener('waiting', () => { status.textContent = '⏳ Buffering…'; });
-vid.addEventListener('playing', () => { status.textContent = ''; });
-vid.addEventListener('error', () => { status.textContent = '❌ Stream error — check R2 upload.'; });
+document.querySelectorAll('button[data-act="pip"]').forEach(b => {
+  b.addEventListener('click', () => {
+    const vid = $('vid-' + b.getAttribute('data-film'));
+    if (document.pictureInPictureElement) { document.exitPictureInPicture(); }
+    else if (vid.requestPictureInPicture) { vid.requestPictureInPicture(); }
+  });
+});
 
-const rateBtns = document.querySelectorAll('.controls .rate-btn');
-function setRate(r) {
-  vid.playbackRate = r;
-  rateBtns.forEach(b => b.classList.remove('active'));
-  rateBtns.forEach(b => { if (b.textContent === r + '×') b.classList.add('active'); });
-  status.textContent = 'Speed: ' + r + '×';
-  setTimeout(() => { status.textContent = ''; }, 1500);
-}
+document.querySelectorAll('button[data-act="fs"]').forEach(b => {
+  b.addEventListener('click', () => {
+    const vid = $('vid-' + b.getAttribute('data-film'));
+    if (!document.fullscreenElement) { if (vid.requestFullscreen) vid.requestFullscreen(); }
+    else { document.exitFullscreen(); }
+  });
+});
 
-function togglePip() {
-  if (document.pictureInPictureElement) {
-    document.exitPictureInPicture();
-  } else if (vid.requestPictureInPicture) {
-    vid.requestPictureInPicture();
-  }
-}
-
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    vid.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}
+setupFilm('collapse');
+setupFilm('coherence');
 </script>
 </body>
 </html>`;
