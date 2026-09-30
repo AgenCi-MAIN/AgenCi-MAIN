@@ -537,7 +537,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 <header>
   <h1>Cinema</h1>
   <span class="pill">H.264 · MP4</span>
-  <span class="meta" id="header-meta">Collapse · Collapse (master)</span>
+  <span class="meta" id="header-meta">Collapse · Collapse (master) · Breath</span>
 </header>
 
 <div class="player-wrap">
@@ -593,12 +593,38 @@ const INLINE_PLAYER = `<!DOCTYPE html>
     </div>
   </section>
 
+  <section class="film">
+    <h2>Breath <span class="sub" id="sub-breath"></span></h2>
+    <div class="video-container">
+      <video id="vid-breath" controls preload="metadata" playsinline>
+        <source src="/video/breath.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+    </div>
+    <div class="controls">
+      <button class="rate-btn" data-film="breath" data-rate="0.5">0.5×</button>
+      <button class="rate-btn active" data-film="breath" data-rate="1">1×</button>
+      <button class="rate-btn" data-film="breath" data-rate="1.5">1.5×</button>
+      <button class="rate-btn" data-film="breath" data-rate="2">2×</button>
+      <button data-film="breath" data-act="pip">⊞ PiP</button>
+      <button data-film="breath" data-act="fs">⛶ Fullscreen</button>
+      <a class="dl-btn" href="/video/breath.mp4" download="breath.mp4">⬇ Breath file</a>
+      <span class="status" id="status-breath"></span>
+    </div>
+    <div class="info-bar" id="info-breath">
+      <span><strong>—</strong> Size</span>
+      <span><strong>—</strong> Uploaded</span>
+      <span><strong>—</strong> Duration</span>
+    </div>
+  </section>
+
 </div>
 
 <script>
 const FILMS = {
   collapse:  { key: 'collapse-web.mp4' },
   master:    { key: 'collapse.mp4' },
+  breath:    { key: 'breath.mp4' },
 };
 function $(id) { return document.getElementById(id); }
 
@@ -657,6 +683,7 @@ document.querySelectorAll('button[data-act="fs"]').forEach(b => {
 
 setupFilm('collapse');
 setupFilm('master');
+setupFilm('breath');
 </script>
 </body>
 </html>`;
