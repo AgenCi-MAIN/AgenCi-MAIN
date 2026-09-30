@@ -467,6 +467,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
     gap: 12px;
   }
   .film h2 .sub { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; text-transform: none; }
+  .film .note { font-size: 12px; color: var(--muted); margin-top: -8px; }
 
   .video-container {
     position: relative;
@@ -536,7 +537,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 <header>
   <h1>Cinema</h1>
   <span class="pill">H.264 · MP4</span>
-  <span class="meta" id="header-meta">Collapse · Coherence</span>
+  <span class="meta" id="header-meta">Collapse · Collapse (master)</span>
 </header>
 
 <div class="player-wrap">
@@ -567,24 +568,25 @@ const INLINE_PLAYER = `<!DOCTYPE html>
   </section>
 
   <section class="film">
-    <h2>Coherence <span class="sub" id="sub-coherence"></span></h2>
+    <h2>Collapse (master) <span class="sub" id="sub-master"></span></h2>
+    <p class="note">Coherence isn't uploaded yet — this player shows the Collapse master (collapse.mp4).</p>
     <div class="video-container">
-      <video id="vid-coherence" controls preload="metadata" playsinline>
-        <source src="/video" type="video/mp4" />
+      <video id="vid-master" controls preload="metadata" playsinline>
+        <source src="/video/collapse.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
       </video>
     </div>
     <div class="controls">
-      <button class="rate-btn" data-film="coherence" data-rate="0.5">0.5×</button>
-      <button class="rate-btn active" data-film="coherence" data-rate="1">1×</button>
-      <button class="rate-btn" data-film="coherence" data-rate="1.5">1.5×</button>
-      <button class="rate-btn" data-film="coherence" data-rate="2">2×</button>
-      <button data-film="coherence" data-act="pip">⊞ PiP</button>
-      <button data-film="coherence" data-act="fs">⛶ Fullscreen</button>
-      <a class="dl-btn" href="/video" download="coherence-master.mp4">⬇ Coherence file</a>
-      <span class="status" id="status-coherence"></span>
+      <button class="rate-btn" data-film="master" data-rate="0.5">0.5×</button>
+      <button class="rate-btn active" data-film="master" data-rate="1">1×</button>
+      <button class="rate-btn" data-film="master" data-rate="1.5">1.5×</button>
+      <button class="rate-btn" data-film="master" data-rate="2">2×</button>
+      <button data-film="master" data-act="pip">⊞ PiP</button>
+      <button data-film="master" data-act="fs">⛶ Fullscreen</button>
+      <a class="dl-btn" href="/video/collapse.mp4" download="collapse-master.mp4">⬇ Collapse master file</a>
+      <span class="status" id="status-master"></span>
     </div>
-    <div class="info-bar" id="info-coherence">
+    <div class="info-bar" id="info-master">
       <span><strong>—</strong> Size</span>
       <span><strong>—</strong> Uploaded</span>
       <span><strong>—</strong> Duration</span>
@@ -596,7 +598,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
 <script>
 const FILMS = {
   collapse:  { key: 'collapse-web.mp4' },
-  coherence: { key: 'collapse.mp4' },
+  master:    { key: 'collapse.mp4' },
 };
 function $(id) { return document.getElementById(id); }
 
@@ -654,7 +656,7 @@ document.querySelectorAll('button[data-act="fs"]').forEach(b => {
 });
 
 setupFilm('collapse');
-setupFilm('coherence');
+setupFilm('master');
 </script>
 </body>
 </html>`;
