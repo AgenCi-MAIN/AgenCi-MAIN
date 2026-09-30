@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
+    "test": "node --test scripts/cinema-honesty.test.mjs",
     "deploy": "wrangler deploy",
     "r2:create": "wrangler r2 bucket create collapse-video",
     "r2:list": "wrangler r2 object list collapse-video",
