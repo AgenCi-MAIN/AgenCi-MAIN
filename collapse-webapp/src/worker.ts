@@ -557,7 +557,7 @@ const INLINE_PLAYER = `<!DOCTYPE html>
       <button class="rate-btn" data-film="collapse" data-rate="2">2×</button>
       <button data-film="collapse" data-act="pip">⊞ PiP</button>
       <button data-film="collapse" data-act="fs">⛶ Fullscreen</button>
-      <a class="dl-btn" href="/video/collapse-web.mp4" download="collapse.mp4">⬇ Collapse file</a>
+      <a class="dl-btn" href="/video/collapse-web.mp4" download="collapse-web.mp4">⬇ Collapse file</a>
       <span class="status" id="status-collapse"></span>
     </div>
     <div class="info-bar" id="info-collapse">
